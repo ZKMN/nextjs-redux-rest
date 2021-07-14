@@ -7,7 +7,7 @@ import wrapper from 'redux-base/configureStore';
 import 'styles/global.scss';
 
 class FreshiiApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }: any) {
     let pageProps = {};
 
     if (Component.getInitialProps) {

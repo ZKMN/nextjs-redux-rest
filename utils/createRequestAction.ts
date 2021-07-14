@@ -3,7 +3,7 @@ import { addActionToSagas, createActionType } from 'utils';
 
 export interface IAppAction<T = any> {
   type: string | undefined;
-  data: T;
+  data?: T;
 }
 
 interface IRequestPayload {
