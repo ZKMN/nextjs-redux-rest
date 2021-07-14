@@ -1,19 +1,19 @@
 import { testSaga } from 'redux-saga-test-plan';
 
-import apiClient from "api/apiClient";
-import { showError } from "redux-base/actions";
+import apiClient from 'api/apiClient';
+import { showError } from 'redux-base/actions';
 import {
   createActionType,
   createRequestAction,
   patchActions,
   XHRMethod,
-} from "utils";
-import watchLastPatchSagaAction, { patchSaga } from "./patchSaga";
+} from 'utils';
+import watchLastPatchSagaAction, { patchSaga } from './patchSaga';
 
-const PATCH_ACTION = createActionType("ACTION", XHRMethod.Patch, true);
-const patchRequest = createRequestAction(PATCH_ACTION, "/patch/:id/");
+const PATCH_ACTION = createActionType('ACTION', XHRMethod.Patch, true);
+const patchRequest = createRequestAction(PATCH_ACTION, '/patch/:id/');
 
-describe("patchSaga", () => {
+describe('patchSaga', () => {
   describe('watchLastPatchSagaAction', () => {
     it('listens deleteSaga', () => {
       testSaga(watchLastPatchSagaAction)
@@ -25,7 +25,7 @@ describe("patchSaga", () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       testSaga(watchLastPatchSagaAction)
@@ -35,12 +35,12 @@ describe("patchSaga", () => {
     });
   });
 
-  describe("testing patchSaga", () => {
-    it("calls action.successCb", () => {
+  describe('testing patchSaga', () => {
+    it('calls action.successCb', () => {
       const action = patchRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
 
       const response = {
@@ -48,9 +48,9 @@ describe("patchSaga", () => {
         status: 200,
         statusText: 'ok',
         headers: {},
-        config: {}, 
+        config: {},
       };
-  
+
       testSaga(patchSaga, action)
         .next()
         .call(apiClient.patch, '/patch/15/?query=10', { id: 10 })
@@ -61,19 +61,19 @@ describe("patchSaga", () => {
         }).next().isDone();
     });
 
-    it("fires error action if js error is thrown", () => {
+    it('fires error action if js error is thrown', () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       const action = patchRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
-  
+
       testSaga(patchSaga, action)
         .next()
         .throw(error)

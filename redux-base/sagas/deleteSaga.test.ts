@@ -25,7 +25,7 @@ describe('deleteSaga', () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       testSaga(watchLastDeleteSagaAction)
@@ -40,7 +40,7 @@ describe('deleteSaga', () => {
       const action = deleteRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
 
       const response = {
@@ -48,9 +48,9 @@ describe('deleteSaga', () => {
         status: 200,
         statusText: 'ok',
         headers: {},
-        config: {}, 
+        config: {},
       };
-  
+
       testSaga(deleteSaga, action)
         .next()
         .call(apiClient.delete, '/delete/15/?query=10', { id: 10 })
@@ -65,15 +65,15 @@ describe('deleteSaga', () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       const action = deleteRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
-  
+
       testSaga(deleteSaga, action)
         .next()
         .throw(error)

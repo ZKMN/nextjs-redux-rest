@@ -1,14 +1,14 @@
 export enum RequestStatuses {
-  Request = "REQUEST",
-  Success = "SUCCESS",
-  Failure = "FAILURE",
+  Request = 'REQUEST',
+  Success = 'SUCCESS',
+  Failure = 'FAILURE',
 }
 export enum XHRMethod {
-  Get = "GET",
-  Post = "POST",
-  Put = "PUT",
-  Patch = "PATCH",
-  Delete = "DELETE",
+  Get = 'GET',
+  Post = 'POST',
+  Put = 'PUT',
+  Patch = 'PATCH',
+  Delete = 'DELETE',
 }
 
 export const createActionType = (

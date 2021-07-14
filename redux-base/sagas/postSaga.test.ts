@@ -1,19 +1,19 @@
 import { testSaga } from 'redux-saga-test-plan';
 
-import apiClient from "api/apiClient";
-import { showError } from "redux-base/actions";
+import apiClient from 'api/apiClient';
+import { showError } from 'redux-base/actions';
 import {
   createActionType,
   createRequestAction,
   postActions,
   XHRMethod,
-} from "utils";
-import watchLastPostSagaAction, { postSaga } from "./postSaga";
+} from 'utils';
+import watchLastPostSagaAction, { postSaga } from './postSaga';
 
-const POST_ACTION = createActionType("ACTION", XHRMethod.Post, true);
-const postRequest = createRequestAction(POST_ACTION, "/post/:id/");
+const POST_ACTION = createActionType('ACTION', XHRMethod.Post, true);
+const postRequest = createRequestAction(POST_ACTION, '/post/:id/');
 
-describe("postSaga", () => {
+describe('postSaga', () => {
   describe('watchLastPostSagaAction', () => {
     it('listens deleteSaga', () => {
       testSaga(watchLastPostSagaAction)
@@ -25,7 +25,7 @@ describe("postSaga", () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       testSaga(watchLastPostSagaAction)
@@ -35,12 +35,12 @@ describe("postSaga", () => {
     });
   });
 
-  describe("testing postSaga", () => {
-    it("calls action.successCb", () => {
+  describe('testing postSaga', () => {
+    it('calls action.successCb', () => {
       const action = postRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
 
       const response = {
@@ -48,9 +48,9 @@ describe("postSaga", () => {
         status: 200,
         statusText: 'ok',
         headers: {},
-        config: {}, 
+        config: {},
       };
-  
+
       testSaga(postSaga, action)
         .next()
         .call(apiClient.post, '/post/15/?query=10', { id: 10 })
@@ -61,19 +61,19 @@ describe("postSaga", () => {
         }).next().isDone();
     });
 
-    it("fires error action if js error is thrown", () => {
+    it('fires error action if js error is thrown', () => {
       const error = {
         name: '',
         message: '',
-        response: { data: 'some data' }, 
+        response: { data: 'some data' },
       };
 
       const action = postRequest({
         query: 10,
         routeParams: { id: 15 },
-        payload: { id: 10 }, 
+        payload: { id: 10 },
       });
-  
+
       testSaga(postSaga, action)
         .next()
         .throw(error)

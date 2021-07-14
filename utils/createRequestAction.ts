@@ -1,5 +1,5 @@
-import { StringifiableRecord } from "query-string";
-import { addActionToSagas, createActionType } from "utils";
+import { StringifiableRecord } from 'query-string';
+import { addActionToSagas, createActionType } from 'utils';
 
 export interface IAppAction<T = any> {
   type: string | undefined;
@@ -7,9 +7,9 @@ export interface IAppAction<T = any> {
 }
 
 interface IRequestPayload {
-  payload?: Record<string, unknown>; 
+  payload?: Record<string, unknown>;
   routeParams?: Record<string, unknown>;
-  [key: string]: unknown; 
+  [key: string]: unknown;
 }
 
 export interface IRequestAction {
@@ -44,7 +44,7 @@ export const createRequestAction = (
     data: response,
   });
 
-  const action: IRequestAction = { 
+  const action: IRequestAction = {
     type: actionType.REQUEST,
     queryParams: { ...rest },
     routeParams,
@@ -52,7 +52,7 @@ export const createRequestAction = (
     endpoint,
     responseType,
     successCallback,
-    ...(actionType.FAILURE && { failureCallback }), 
+    ...(actionType.FAILURE && { failureCallback }),
   };
 
   return action;

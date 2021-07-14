@@ -1,4 +1,4 @@
-import { XHRMethod, createActionType } from "./createActionType";
+import { XHRMethod, createActionType } from './createActionType';
 
 export const getActions = [] as string[];
 export const postActions = [] as string[];

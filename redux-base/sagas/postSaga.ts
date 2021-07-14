@@ -1,9 +1,9 @@
-import { takeLatest, put, call } from "redux-saga/effects";
-import { AxiosResponse, AxiosError } from "axios";
+import { takeLatest, put, call } from 'redux-saga/effects';
+import { AxiosResponse, AxiosError } from 'axios';
 
-import apiClient from "api/apiClient";
-import { showError } from "redux-base/actions";
-import { IRequestAction, postActions, addParamsToURL } from "utils";
+import apiClient from 'api/apiClient';
+import { showError } from 'redux-base/actions';
+import { IRequestAction, postActions, addParamsToURL } from 'utils';
 
 export function* postSaga(action: IRequestAction) {
   try {

@@ -1,11 +1,11 @@
-import { createStore, applyMiddleware } from "redux";
-import createSagaMiddleware from 'redux-saga'
-import {createWrapper} from 'next-redux-wrapper'
-import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { createWrapper } from 'next-redux-wrapper';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import { LOGOUT } from './actions';
-import rootSaga from "./sagas/rootSaga";
-import rootReducer from "./reducers/rootReducer";
+import rootSaga from './sagas/rootSaga';
+import rootReducer from './reducers/rootReducer';
 
 const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -34,4 +34,4 @@ const configureStore = () => {
   return store;
 };
 
-export default createWrapper(configureStore)
+export default createWrapper(configureStore);

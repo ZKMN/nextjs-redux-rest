@@ -2,10 +2,10 @@ import {
   createRequestAction,
   createActionType,
   XHRMethod,
-} from "utils";
+} from 'utils';
 
 // ------------------------Action constants---------------
-export const LOGIN = createActionType("LOGIN", XHRMethod.Get);
+export const LOGIN = createActionType('LOGIN', XHRMethod.Get);
 
 // ------------------------Action creators----------------
-export const someActionGetRequest = createRequestAction(LOGIN, "");
+export const someActionGetRequest = createRequestAction(LOGIN, '');

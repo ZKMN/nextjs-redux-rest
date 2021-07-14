@@ -8,20 +8,20 @@ import 'styles/global.scss';
 
 class FreshiiApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {}
+    let pageProps = {};
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(ctx);
     }
 
-    return { pageProps }
+    return { pageProps };
   }
 
   render() {
     const { Component, pageProps } = this.props;
 
-    return <Component {...pageProps} />
+    return <Component {...pageProps} />;
   }
 }
 
-export default wrapper.withRedux(withReduxSaga(FreshiiApp))
+export default wrapper.withRedux(withReduxSaga(FreshiiApp));

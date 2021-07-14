@@ -1,4 +1,4 @@
-import produce from "immer";
+import produce from 'immer';
 import {
   SHOW_ERROR,
 
@@ -21,7 +21,7 @@ const error = produce(
       case RESET_REDUCER:
         return INITIAL_STATE;
     }
-  }, 
+  },
   INITIAL_STATE,
 );
 
