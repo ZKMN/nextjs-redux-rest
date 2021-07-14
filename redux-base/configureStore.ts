@@ -1,16 +1,19 @@
+import { useMemo } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { createWrapper } from 'next-redux-wrapper';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import { LOGOUT } from './actions';
 import rootSaga from './sagas/rootSaga';
 import rootReducer from './reducers/rootReducer';
 
-const configureStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
+let createRootReducer = rootReducer();
+const createdStore = createStore(createRootReducer);
 
-  let createRootReducer = rootReducer();
+let store: typeof createdStore | undefined;
+
+const initStore = <T>(preloadedState: T) => {
+  const sagaMiddleware = createSagaMiddleware();
 
   createRootReducer = (state, action) => {
     if (action.type === LOGOUT) {
@@ -22,10 +25,9 @@ const configureStore = () => {
 
   const store = createStore(
     createRootReducer,
+    preloadedState,
     composeWithDevTools(
-      applyMiddleware(
-        sagaMiddleware,
-      ),
+      applyMiddleware(sagaMiddleware),
     ),
   );
 
@@ -34,8 +36,32 @@ const configureStore = () => {
   return store;
 };
 
-const store = configureStore();
+export const initializeStore = <T>(preloadedState?: T) => {
+  let _store = store ?? initStore(preloadedState);
 
-export type RootState = ReturnType<typeof store.getState>;
+  // After navigating to a page with an initial Redux state, merge that state
+  // with the current state in the store, and create a new store
+  if (preloadedState && store) {
+    _store = initStore({
+      ...store.getState(),
+      ...preloadedState,
+    });
+    // Reset the current store
+    store = undefined;
+  }
 
-export default createWrapper(configureStore);
+  // For SSG and SSR always create a new store
+  if (typeof window === 'undefined') return _store;
+  // Create the store once in the client
+  if (!store) store = _store;
+
+  return _store;
+};
+
+export const useStore = <T>(initialState: T) => {
+  const store = useMemo(() => initializeStore(initialState), [initialState]);
+
+  return store;
+};
+
+export type RootState = ReturnType<typeof createdStore.getState>;

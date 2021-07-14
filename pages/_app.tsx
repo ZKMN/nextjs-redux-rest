@@ -1,27 +1,15 @@
 import React from 'react';
-import App from 'next/app';
-import withReduxSaga from 'next-redux-saga';
+import { Provider } from 'react-redux';
+import { useStore } from 'redux-base/configureStore';
 
-import wrapper from 'redux-base/configureStore';
+const App = ({ Component, pageProps }: { Component: React.FC, pageProps: any }) => {
+  const store = useStore(pageProps.initialReduxState);
 
-import 'styles/global.scss';
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+};
 
-class FreshiiApp extends App {
-  static async getInitialProps({ Component, ctx }: any) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
-  render() {
-    const { Component, pageProps } = this.props;
-
-    return <Component {...pageProps} />;
-  }
-}
-
-export default wrapper.withRedux(withReduxSaga(FreshiiApp));
+export default App;
